@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>COVID-19 Stats</title>
+
+</head>
+<body>
+{% load static%}
+<link rel="stylesheet" href="{% static 'covid/index.css'%}"/>
+<form method="post">
+{% csrf_token %}
+    <div class="grid-container">
+       <aside class="sidenav">
+         <ul class="sidenav__list">
+           <li class="sidenav__list-item" onclick=location.href="#">Stats</li>
+           <li class="sidenav__list-item" onclick=location.href="symptoms.html">Symptoms</li>
+           <li class="sidenav__list-item" onclick=location.href="precautions.html">Precautions</li>
+         </ul>
+       </aside>
+       <header>
+        <button>
+            <span>COVID-19 Stats</span>
+        </button></header>
+        <br>
+       <main class="main">
+       <br>
+
+        <div class="main-overview">
+            {% for each in queryset %}
+        <div class="overviewcard">
+            <div class="overviewcard__icon"><b>Total Cases</b></div>
+            <div class="overviewcard__info">{{each.Cases_all}}</div>
+        </div>
+        <div class="overviewcard">
+            <div class="overviewcard__icon"><b>Deaths</b></div>
+            <div class="overviewcard__info">{{ each.Deaths}}</div>
+        </div>
+        <div class="overviewcard">
+            <div class="overviewcard__icon"><b>Recoveries</b></div>
+            <div class="overviewcard__info">{{ each.Recovered}}</div>
+        </div>
+            {% endfor  %}
+        </div>
+
+
+
+    <div class="main-cards">
+        <div class="card"><b>Country wise LIVE Stats </b><br>
+            {% autoescape off %}
+            {{ html_table }}
+            {% endautoescape %}
+        </div>
+    </div>
+       </main>
+
+     </div>
+    </form>
+</body>
+<footer class="footer">
+        <p>about us</p>
+      </footer>
+</html>
